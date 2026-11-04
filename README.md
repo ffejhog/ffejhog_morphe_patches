@@ -43,10 +43,15 @@ two preceding instructions so the pattern is unique in the ~33 MB bundle. If a f
 version compiles the shell differently the patch fails with a clear error instead of producing a
 broken APK; other versions are therefore marked experimental.
 
+> **Note:** Do not patch Bluesky from Morphe Manager's "saved / cached APK" source. That path
+> drops the app's config splits, so the patched build is base-only and the age gate comes back.
+> Always patch from the installed app or a fresh APK download. This is a Manager limitation,
+> not a patch bug.
+
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0](https://github.com/ffejhog/ffejhog_morphe_patches/releases/tag/v1.0.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;2 patches total
+> **[v1.0.1-dev.1](https://github.com/ffejhog/ffejhog_morphe_patches/releases/tag/v1.0.1-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;1 patches total
 <details open>
 <summary>📦 Bluesky&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
@@ -61,23 +66,6 @@ broken APK; other versions are therefore marked experimental.
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Bypass age verification gate](#bypass-age-verification-gate) | Removes the full-screen age verification wall that blocks the app in regions requiring age assurance. Content restrictions for unverified users are unchanged. |  |
-
-</details>
-
-<details open>
-<summary>📦 XYZ app&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
-<br>
-
-**Package name:** `com.example.app`
-
-**🎯 Supported versions:**
-
-| 2.0.0 | 1.0.2 |
-| :---: | :---: |
-
-| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
-|----------|----------------|-----------|
-| [Example Patch](#example-patch) | Example patch to start with. |  |
 
 </details>
 
