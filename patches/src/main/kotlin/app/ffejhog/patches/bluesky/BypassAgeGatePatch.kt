@@ -31,15 +31,20 @@ private val GATE_PATTERN: ByteArray = byteArrayOf(
 /**
  * Same instruction layout with the branch removed: `Eq` (0x16) instead of `JStrictEqual`.
  *
- * `Eq r11 = r18 == r12` is three bytes long just like the jump, so every following instruction
- * keeps its address and all jump offsets stay valid. The result lands in a scratch register
- * that is overwritten immediately, and execution falls through to the normal app instead of
- * jumping to the age gate screen.
+ * `Eq r21 = r18 == r12` is three bytes long just like the jump, so every following instruction
+ * keeps its address and all jump offsets stay valid.
+ *
+ * The destination register must be one that is written before it is ever read, because `Eq`
+ * stores a value where `JStrictEqual` did not. `r21` qualifies: its first write in the
+ * fall-through is a `NewObject` at a later address, so it carries no live value across the
+ * comparison. Writing there is harmless and execution falls through to the normal app
+ * instead of jumping to the age gate screen. (Do not use `r11`: it holds the global object,
+ * and `r12` still holds `Access.None`, both of which the surrounding code reads.)
  */
 private val GATE_REPLACEMENT: ByteArray = byteArrayOf(
     0x78, 0x8d.toByte(), 0x45, 0x0c,
     0x0c, 0x1a, 0x7b, 0xd0.toByte(),
-    0x16, 0x0b, 0x12, 0x0c,
+    0x16, 0x15, 0x12, 0x0c,
 )
 
 /**

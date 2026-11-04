@@ -24,7 +24,7 @@ class BypassAgeGatePatchTest {
     private val gateReplacement = byteArrayOf(
         0x78, 0x8d.toByte(), 0x45, 0x0c,
         0x0c, 0x1a, 0x7b, 0xd0.toByte(),
-        0x16, 0x0b, 0x12, 0x0c,
+        0x16, 0x15, 0x12, 0x0c,
     )
 
     /** A fake bytecode file: filler, the gate sequence, more filler, then a valid SHA-1 footer. */
