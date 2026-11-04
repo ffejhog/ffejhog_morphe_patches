@@ -1,7 +1,9 @@
-rootProject.name = "morphe-patches-template"
+rootProject.name = "ffejhog-morphe-patches"
 
 pluginManagement {
     repositories {
+        // morphe-patches-gradle-plugin and morphe-patcher are published here for offline builds.
+        mavenLocal()
         gradlePluginPortal()
         google()
         maven {

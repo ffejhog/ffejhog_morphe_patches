@@ -1,20 +1,47 @@
-# 👋🧩 Morphe Patches template
+# 👋🧩 ffejhog Morphe Patches
 
-Template repository for Morphe Patches.
+Personal [Morphe](https://morphe.software) patches.
 
 ## ❓ About
 
 Patches for apps I like.
 
-<!-- TODO: Update this about section with a brief introduction/summary about this repo and what it offers. -->
-
 ### How to use these patches
 
-Click the button below, or manually add this repo url to Morphe Manager: https://github.com/xyz-user/xyz-patches
+Add this repo url to Morphe Manager: https://github.com/ffejhog/ffejhog_morphe_patches
 
-<a href="https://morphe.software/add-source?github=xyz-user/xyz-patches">
+<a href="https://morphe.software/add-source?github=ffejhog/ffejhog_morphe_patches">
   <img src=".github/assets/add-to-morphe.svg" alt="Add to Morphe" height="48">
 </a>
+
+## 📱 Bluesky
+
+### Bypass age verification gate
+
+Bluesky is a React Native app, so its UI is compiled to a Hermes bytecode bundle
+(`assets/index.android.bundle`) rather than Dalvik bytecode. In regions that require age
+assurance and for users who have not completed it, the app shell renders a full-screen
+"share your age range" page instead of the app:
+
+```
+if      (session.status === 'deactivated')  -> DeactivatedScreen
+else if (state.error === 'account-data')    -> DataUnavailableScreen
+else if (state.access === Access.None)      -> NoAccessScreen     <- the age gate
+else                                        -> RoutesContainer    <- the app
+```
+
+The patch swaps the conditional jump of that third branch for a non-branching comparison, so
+the gate branch becomes unreachable and the shell always renders the app. The instruction is
+the same length, so all other offsets stay valid, and the bundle's trailing SHA-1 footer is
+recomputed so the Hermes runtime still accepts the file.
+
+Age assurance state itself is untouched, so region-based content restrictions for unverified
+users still apply. Only the blocking screen is removed.
+
+The patch is a `RawResourcePatch` that matches a 12-byte window of the shell, anchored on the
+two preceding instructions so the pattern is unique in the ~33 MB bundle. If a future app
+version compiles the shell differently the patch fails with a clear error instead of producing a
+broken APK; other versions are therefore marked experimental.
 
 ## 🩹 Patches list
 
