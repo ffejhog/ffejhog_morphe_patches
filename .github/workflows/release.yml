@@ -13,6 +13,18 @@ jobs:
       id-token: write
       attestations: write
     runs-on: ubuntu-latest
+    # The Morphe settings plugin configures its GitHub Packages registry repository with
+    # repository.credentials { ... .get() }, so gpr.user / gpr.key must be present or the
+    # build fails with a bare IllegalArgumentException before resolving anything.
+    # app.morphe:morphe-patcher is published there and answers 401 to anonymous requests,
+    # so a token with read:packages is required: a classic PAT in the MORPHE_PACKAGES_TOKEN
+    # secret, falling back to the Actions token (which works once the package is public to
+    # this repo). These are passed through GRADLE_OPTS so the job-level GITHUB_TOKEN that
+    # semantic-release and the attestation step rely on stays untouched.
+    env:
+      GRADLE_OPTS: >-
+        -Dorg.gradle.project.gpr.user=${{ github.actor }}
+        -Dorg.gradle.project.gpr.key=${{ secrets.MORPHE_PACKAGES_TOKEN || secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -54,6 +66,4 @@ jobs:
       # This covers non-main/dev branches, chore commits, docs commits, etc.
       - name: Verify project compiles
         if: steps.release.outputs.new_release_published != 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew :patches:buildAndroid clean --no-daemon
+        run: ./gradlew :patches:buildAndroid :patches:test clean --no-daemon

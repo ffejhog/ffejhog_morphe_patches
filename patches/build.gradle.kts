@@ -1,14 +1,14 @@
-group = "app.template"
+group = "app.ffejhog"
 
 patches {
     // TODO: Update this section with your project details.
     about {
-        name = "UserXYZ Patches"
-        description = "Patches for apps I like"
-        source = "git@github.com:UserXYZ/morphe-patches.git"
-        author = "Awesome dev"
-        contact = "na"
-        website = "na"
+        name = "ffejhog Morphe Patches"
+        description = "Personal patches for apps I use"
+        source = "git@github.com:ffejhog/ffejhog_morphe_patches.git"
+        author = "ffejhog"
+        contact = "https://github.com/ffejhog"
+        website = "https://github.com/ffejhog/ffejhog_morphe_patches"
         license = "GPLv3"
     }
 }
@@ -20,6 +20,13 @@ val patchListGeneratorClasspath = configurations.create("patchListGeneratorClass
 dependencies {
     compileOnly(libs.gson)
     patchListGeneratorClasspath(libs.gson)
+
+    testImplementation(libs.junit.jupiter)
+    testImplementation(kotlin("test-junit5"))
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
 }
 
 tasks {
