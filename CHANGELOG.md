@@ -1,3 +1,9 @@
+## [1.0.0-dev.3](https://github.com/ffejhog/ffejhog_morphe_patches/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2026-11-04)
+
+### ✨ New Features
+
+* Adding Signing Key for patch ([d52f78b](https://github.com/ffejhog/ffejhog_morphe_patches/commit/d52f78b788369dc92cf2e989b82d04b1bb46b98c))
+
 ## [1.0.0-dev.2](https://github.com/ffejhog/ffejhog_morphe_patches/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2026-11-04)
 
 ### 🐛 Bug Fixes
