@@ -60,33 +60,27 @@ broken APK; other versions are therefore marked experimental.
 
 ## 🚀 Getting development started
 
-To start using this template, follow these steps:
+1. [Setup](https://github.com/MorpheApp/morphe-documentation/blob/main/docs/morphe-development/README.md) your development environment, including a GitHub PAT as described [here](https://github.com/MorpheApp/morphe-patcher/blob/main/docs/2_1_setup.md#-prepare-the-environment).
+2. Enable "Allow GitHub Actions to create and approve pull requests" in Settings > Actions > General > Workflow permissions.
+3. Add the `MORPHE_PACKAGES_TOKEN` secret (a classic PAT with `read:packages`). The Morphe Gradle
+   settings plugin requires GitHub Packages credentials, and `app.morphe:morphe-patcher` is not
+   readable anonymously. `MORPHE_SIGNING_KEY` is optional, see below.
 
-1. [Setup](https://github.com/MorpheApp/morphe-documentation/blob/main/docs/morphe-development/README.md) your development environment including adding a GitHub PAT as described [here](https://github.com/MorpheApp/morphe-patcher/blob/main/docs/2_1_setup.md#-prepare-the-environment).
-2. [Create a new repository using this template](https://github.com/new?template_name=morphe-patches-template&template_owner=MorpheApp). Select create a new repository, and **enable 'Include all branches'** 
-3. Enable "Allow GitHub Actions to create and approve pull requests" in your repo Settings > Actions > General > Workflow permissions
-4. Update the [build.gradle.kts](patches/build.gradle.kts) file (Specifically, the 
-   [group of the project](patches/build.gradle.kts#L1), and the [About](patches/build.gradle.kts#L6-L11))
-5. Update the [README.md](README.md) file to be specific of your repo, and update the links in the [issue templates](.github/ISSUE_TEMPLATE).
-6. Choose a name for your patches project. Keep in mind you must use a name that does not 
-   imply authorship by the Morphe open source project. If unsure, then simply name these
-   patches after yourself ("UserXYZ Morphe patches"). See the [NOTICE](NOTICE) for details. 
-7. (Optional): Add `patches-bundle.png` to the project if you want a custom icon to show in
-   Morphe Manager instead of your GitHub profile avatar.
-8. (Optional): Sign your releases, so Morphe Manager refuses a release that was changed or swapped after you published it:
-   1. Run `./gradlew generateSigningKey`. It creates `morphe-signing.pub` and `morphe-signing.key`.
-   2. Commit `morphe-signing.pub`. Never commit `morphe-signing.key`, it is already ignored by git.
-   3. Add the content of `morphe-signing.key` as the `MORPHE_SIGNING_KEY` secret in your repo
-      Settings > Secrets and variables > Actions, then keep a backup of it somewhere safe and delete the file.
+### Optional: sign releases
 
-   Every release is signed from then on. If you lose the key or it leaks, create a new one the same way;
-   users then have to confirm the new key in Morphe Manager before they get your next release.
+Signing lets Morphe Manager reject a release that was modified after publication.
 
-🎉 You are now ready to start creating patches!
+1. Run `./gradlew generateSigningKey`. It creates `morphe-signing.pub` and `morphe-signing.key`.
+2. Commit `morphe-signing.pub`. Never commit `morphe-signing.key`, it is already ignored by git.
+3. Add the contents of `morphe-signing.key` as the `MORPHE_SIGNING_KEY` secret, keep a backup
+   somewhere safe, then delete the file.
+
+Every release is signed from then on. If the key is lost or leaks, generate a new one the same
+way; users then have to confirm the new key in Morphe Manager before receiving your next release.
 
 ## 🧑‍💻 Dev usage
 
-To develop and release your Patches using this template:
+To develop and release these patches:
 
 - **Make all changes to the `dev` branch.**
 - For local development work build your patches using the gradle task `./gradlew buildAndroid` to generate the mpp file found in `patches/build/libs/patches-*.mpp`. Apply your patches locally using Morphe Desktop tool like any other patch bundle.
@@ -127,4 +121,4 @@ See the [Morphe documentation](https://github.com/MorpheApp/morphe-documentation
 
 ## 📜 License
 
-UserXYZ Patches are licensed under the [GNU General Public License v3.0](LICENSE)
+ffejhog Morphe Patches are licensed under the [GNU General Public License v3.0](LICENSE)
