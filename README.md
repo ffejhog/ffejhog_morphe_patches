@@ -43,6 +43,11 @@ two preceding instructions so the pattern is unique in the ~33 MB bundle. If a f
 version compiles the shell differently the patch fails with a clear error instead of producing a
 broken APK; other versions are therefore marked experimental.
 
+> **Note:** Do not patch Bluesky from Morphe Manager's "saved / cached APK" source. That path
+> drops the app's config splits, so the patched build is base-only and the age gate comes back.
+> Always patch from the installed app or a fresh APK download. This is a Manager limitation,
+> not a patch bug.
+
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
