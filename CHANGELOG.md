@@ -1,3 +1,9 @@
+## [1.0.1-dev.1](https://github.com/ffejhog/ffejhog_morphe_patches/compare/v1.0.0...v1.0.1-dev.1) (2026-11-04)
+
+### 🐛 Bug Fixes
+
+* Remove template example patch and document the cached-APK limitation ([bdbd0ce](https://github.com/ffejhog/ffejhog_morphe_patches/commit/bdbd0ce1a1b90d251789e3f7a7aaf80d40e914b6))
+
 ## 1.0.0 (2026-11-04)
 
 ### ✨ New Features
